@@ -36,3 +36,7 @@ gcloud auth application-default login
 # Download your service account key from GCP Console and set the environment variable
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-key.json
 ```
+
+## Set up the environment
+put the credentials and variables inside the .env
+

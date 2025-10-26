@@ -142,4 +142,4 @@ app/__pycache__/
 app/helpers/__pycache__/
 data/*
 *.json
-rag/*
+archived/*
