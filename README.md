@@ -1,87 +1,82 @@
-# Cymbal Care Assistant
-An End-to-End Generative AI Solution for Contextual Knowledge Assistance on Vertex AI
+# Overview
 
-## At Glance Agentic AI with Google ADK at Glance
 <div align="center">
 <img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/3f1b26bf-9cd0-49df-b504-aa60e885a4db" />
 </div>
 
-Hello
+An ADK-based assistant act as Supervisor Agent receives the user request both chat or voice in simple UI -- ADK Web, builds with full context (prompt, history, knowledge, tools, memory), plans a few steps, calls tools (APIs/search/tasks), runs guardrails for safety & logging, aggregates the results, optionally updates memory, and returns the final answer.
 
-## At Glance Agentic AI workflow
-<div align="center">
-<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/4d855404-9d6f-42a2-9d14-f043f3e44d33" />
-</div>
 
-Hello
-
-## Prerequisites
-
+## Quickstart: Environment preparation
 - Python 3.11+
 - Google Cloud project with Vertex AI API enabled
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 - Access to Vertex AI, Cloud Storage, custom API, Cloud SQL
 
+
 ## Installation
 
 ```bash
-# Configure your Google Cloud project
+# Set your project and region
 export GOOGLE_CLOUD_PROJECT="your-project-id"
 export GOOGLE_CLOUD_LOCATION="us-central1"
 
 # Enable required Google Cloud services
-gcloud services enable aiplatform.googleapis.com --project=${GOOGLE_CLOUD_PROJECT}
-gcloud services enable storage.googleapis.com --project=${GOOGLE_CLOUD_PROJECT}
+gcloud services enable aiplatform.googleapis.com \
+    --project=${GOOGLE_CLOUD_PROJECT}
+gcloud services enable storage.googleapis.com \
+    --project=${GOOGLE_CLOUD_PROJECT}
 
-# Set up IAM permissions
+# Assign IAM roles to your user or service account
 gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT} \
     --member="user:YOUR_EMAIL@domain.com" \
     --role="roles/aiplatform.user"
+
 gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT} \
     --member="user:YOUR_EMAIL@domain.com" \
     --role="roles/storage.objectAdmin"
 
-# Set up Gemini API key
-# Get your API key from Google AI Studio: https://ai.google.dev/
-export GOOGLE_API_KEY=your_gemini_api_key_here
-
-# Set up authentication credentials
-# Option 1: Use gcloud application-default credentials (recommended for development)
+# Authentication
+# Option 1: Recommended for local development
 gcloud auth application-default login
 
-# Option 2: Use a service account key (for production or CI/CD environments)
-# Download your service account key from GCP Console and set the environment variable
-export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-key.json
+# Option 2: For CI/CD or production (service account key)
+# Download your service account key and set the path
+export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
+
+# Enable sqladmin
+gcloud services enable sqladmin.googleapis.com
+
 ```
+
+
+## At glance of How the Agentic AI working
+
+<div align="center">
+<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/4d855404-9d6f-42a2-9d14-f043f3e44d33" />
+</div>
+
+Users interact through ADK Web with an ADK Agent that hands off to a Model Agent (wrapped by guardrails). The Model Agent orchestrates three families of tools: (1) Website search (website/fetch), (2) Document search (retrieve & upsert), and (3) Storage ops (list/detail/upload). If a previous session exists, context is restored from Cloud SQL. Guardrails capture traces and policy checks; Governance evaluation records metrics. Outputs are combined and sent back to the user.
+
+
+
 
 ## Set up the environment
 put the credentials and variables inside the .env
 
-###
-xxxx
 
-### Deploy ADK Agents onto Google Cloud Run
+### Quickstart: Host ADK Agents in Google CloudRun
 
-<!-- Set your Google Cloud Project ID -->
-export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
-
-<!-- Set your desired Google Cloud Location -->
-export GOOGLE_CLOUD_LOCATION="us-central1"
-
-<!-- Set the path to your agent code directory -->
+```bash
 export AGENT_PATH="./cymbal_agent"
-
-<!-- Set a name for your Cloud Run service (optional) -->
 export SERVICE_NAME="cymbal-assistant-service"
-
-# Set an application name for the ADK API server (optional)
-# Defaults to the agent directory name if not set
 export APP_NAME="cymbal_agent"
-
-# Ensure Vertex AI backend is used if needed by your model config
 export GOOGLE_GENAI_USE_VERTEXAI=True
 
 source cymbal_agent/.env
+
+```
+
 ```bash
 adk deploy cloud_run \
     --project=$GOOGLE_CLOUD_PROJECT \
