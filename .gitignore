@@ -16,5 +16,4 @@ cymbal_agent/ENV/
 # NDA Files
 data/*
 archived/*
-scripts/*
 *.json
