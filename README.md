@@ -1,9 +1,26 @@
+# Cymbal Care Assistant
+An End-to-End Generative AI Solution for Contextual Knowledge Assistance on Vertex AI
+
+## At Glance Agentic AI with Google ADK at Glance
+<div align="center">
+<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/3f1b26bf-9cd0-49df-b504-aa60e885a4db" />
+</div>
+
+Hello
+
+## At Glance Agentic AI workflow
+<div align="center">
+<img width="640" height="480" alt="image" src="https://github.com/user-attachments/assets/4d855404-9d6f-42a2-9d14-f043f3e44d33" />
+</div>
+
+Hello
+
 ## Prerequisites
 
 - Python 3.11+
 - Google Cloud project with Vertex AI API enabled
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
-- Access to Vertex AI and Cloud Storage
+- Access to Vertex AI, Cloud Storage, custom API, Cloud SQL
 
 ## Installation
 
