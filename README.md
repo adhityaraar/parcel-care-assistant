@@ -40,3 +40,43 @@ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your/service-account-key.json
 ## Set up the environment
 put the credentials and variables inside the .env
 
+###
+xxxx
+
+### Deploy ADK Agents onto Google Cloud Run
+
+<!-- Set your Google Cloud Project ID -->
+export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
+
+<!-- Set your desired Google Cloud Location -->
+export GOOGLE_CLOUD_LOCATION="us-central1"
+
+<!-- Set the path to your agent code directory -->
+export AGENT_PATH="./cymbal_agent"
+
+<!-- Set a name for your Cloud Run service (optional) -->
+export SERVICE_NAME="cymbal-assistant-service"
+
+# Set an application name for the ADK API server (optional)
+# Defaults to the agent directory name if not set
+export APP_NAME="cymbal_agent"
+
+# Ensure Vertex AI backend is used if needed by your model config
+export GOOGLE_GENAI_USE_VERTEXAI=True
+
+source cymbal_agent/.env
+```bash
+adk deploy cloud_run \
+    --project=$GOOGLE_CLOUD_PROJECT \
+    --region=$GOOGLE_CLOUD_LOCATION \
+    --service_name=$SERVICE_NAME \
+    --app_name=$APP_NAME \
+    --with_ui \
+    $AGENT_PATH
+```
+
+### Central Governance Engine 
+
+
+### Deployment
+python deployment.py

@@ -6,7 +6,10 @@ PyPDF2>=3.0.0
 vertexai>=0.0.1
 requests>=2.31.0
 python-dotenv
-
-# !pip install google-cloud-vision
-# pip install google-generativeai
-# pip install Pillow
+beautifulsoup4
+sqlalchemy>=2.0
+pymysql>=1.1.0
+google-genai "google-cloud-aiplatform[evaluation]"
+google-adk[eval]
+# google-cloud-vision
+# Pillow

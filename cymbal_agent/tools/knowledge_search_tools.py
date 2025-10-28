@@ -10,7 +10,8 @@ from typing import List, Optional
 import vertexai
 
 from google.cloud import aiplatform_v1
-from google.genai import Client as GenAIClient
+# from google.genai import Client as GenAIClient
+from google import genai
 from google.genai.types import EmbedContentConfig
 from google.adk.tools import ToolContext, FunctionTool
 
@@ -19,7 +20,7 @@ load_dotenv()
 
 PROJECT_ID = os.getenv("PROJECT_ID")
 LOCATION = os.getenv("LOCATION")
-VERTEX_API_KEY = os.getenv("VERTEX_API_KEY")
+# VERTEX_API_KEY = os.getenv("VERTEX_API_KEY")
 
 VECTOR_DEFAULT_MODEL_NAME = os.getenv("VECTOR_DEFAULT_MODEL_NAME")
 VECTOR_DEFAULT_EMBED_DIM = int(os.getenv("VECTOR_DEFAULT_EMBED_DIM"))
@@ -29,8 +30,8 @@ VECTOR_DEFAULT_API_ENDPOINT = os.getenv("VECTOR_DEFAULT_API_ENDPOINT")
 
 
 vertexai.init(project=PROJECT_ID, location=LOCATION)
-genai_client = GenAIClient(api_key=VERTEX_API_KEY)
-
+# genai_client = GenAIClient(api_key=VERTEX_API_KEY)
+genai_client = genai.Client(vertexai=True)
 
 def embed_texts(texts: List[str], dim: int = VECTOR_DEFAULT_EMBED_DIM) -> List[List[float]]:
     """Generate embeddings for a list of texts using Gemini embedding model."""
@@ -131,5 +132,6 @@ def retrieve_documents(
     except Exception as e:
         return f"Error retrieving documents: {str(e)}"
 
-
+# Create FunctionTools from the functions
+# upsert_index
 query_documents_tool = FunctionTool(retrieve_documents)

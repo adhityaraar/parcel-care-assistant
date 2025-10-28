@@ -3,7 +3,9 @@ from google.adk.agents import Agent
 from google.adk.tools.load_memory_tool import load_memory_tool
 
 # Local tool imports
-from rag.tools import storage_tools, vector_search_tools
+from archived import memory_debug_tools
+from cymbal_agent.tools import knowledge_search_tools, storage_tools, website_search_tools, knowledge_search_tools
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -45,8 +47,13 @@ agent = Agent(
        - Always base your answer on the retrieved chunks - don't add information not present in the chunks
        - If the chunks don't contain relevant information, say "I don't have enough information to answer this question based on our internal documentation"
        - Provide the answer naturally without mentioning the retrieval process
+    
+    3. WEBSITE SEARCH DOCUMENTS
+       - When the user asks for web info, call google_search_tool first.
+       - Then pass its text output to fetch_search_pages_tool
+       - to read the first few links and ground your answer.
 
-    3. HOW TO RESPOND:
+    4. HOW TO RESPOND:
        - Be conversational, friendly, and helpful
        - Provide detailed answers with clear structure and paragraphs
        - Include all relevant details from the retrieved documents
@@ -60,7 +67,9 @@ agent = Agent(
     """,
     tools=[
         # RAG query tools
-        vector_search_tools.query_documents_tool,
+        knowledge_search_tools.query_documents_tool,
+        website_search_tools.google_search_tool,
+        website_search_tools.fetch_search_pages_tool,
         
         # GCS bucket management tools
         storage_tools.list_buckets_tool,
@@ -69,7 +78,7 @@ agent = Agent(
         storage_tools.list_blobs_tool,
         
         # Memory tool for accessing conversation history
-        load_memory_tool,
+        load_memory_tool
     ],
     # Output key automatically saves the agent's final response in state under this key
     output_key=AGENT_OUTPUT_KEY
@@ -80,3 +89,30 @@ root_agent = agent
 # query = "What is vCare?"
 # query = "how to update my email address?"
 # query = "Is bundling discount available?"
+
+# ----
+# from google.adk.agents import Agent
+# from cymbal_agent.tools.datetime_tools import get_current_datetime_tool
+# from .utils.governance_plugin import EnterpriseGovernancePlugin
+
+# governance = EnterpriseGovernancePlugin()
+
+# root_agent = Agent(
+#     name="TimeStampedSummarizerAgent",
+#     model="gemini-2.0-flash",
+#     instruction=(
+#         "You are an expert summarization agent. Summarize user text, then append "
+#         "the current date/time and a disclaimer."
+#     ),
+#     tools=[knowledge_search_tools.get_current_datetime_tool],
+#     before_agent_callback=governance.before_agent_callback,
+#     before_model_callback=governance.before_model_callback,
+#     after_model_callback=governance.after_model_callback,
+#     before_tool_callback=governance.before_tool_callback,
+#     after_tool_callback=governance.after_tool_callback,
+#     after_agent_callback=governance.after_agent_callback,
+# )
+
+# Toolset
+# Knowledge
+# Behavior
