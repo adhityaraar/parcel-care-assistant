@@ -140,6 +140,13 @@ After deployment, ADK will output a **public Cloud Run URL** where the chat UI (
 
 ## 🧭 Summary
 
+```bash
+Example Question:
+- What is SED and when is it required for exports?
+- Can used household items or personal effects be shipped to Singapore?
+- What is SED and when is it required for exports?
+```
+
 | Component | Purpose |
 |------------|----------|
 | **ADK Agent** | Core orchestration logic |
