@@ -77,6 +77,7 @@ agent = Agent(
     tools=[
         # RAG query tools
         knowledge_search_tools.query_documents_tool,
+      #   knowledge_search_tools.build_and_upsert,
         website_search_tools.google_search_tool,
         website_search_tools.fetch_search_pages_tool,
         
