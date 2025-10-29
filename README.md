@@ -1,6 +1,8 @@
 # ADK-Based Agentic Assistant on Vertex AI
 
-An **Agentic AI system** built using **Google’s Agent Development Kit (ADK)**.  
+An **Agentic AI system** built using **Google’s Agent Development Kit (ADK)**.
+
+
 This assistant acts as a **Supervisor Agent** that receives user requests (text or voice) via **ADK Web UI**, plans multi-step reasoning with full context (prompt, history, tools, memory), executes the required actions, and returns a safe, grounded response.
 
 ---
