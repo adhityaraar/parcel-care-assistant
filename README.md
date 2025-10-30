@@ -37,7 +37,7 @@ Each interaction runs through:
   - Vertex AI API  
   - Cloud Storage  
   - Cloud SQL  
-  - Custom APIs (if used)
+  - Custom APIs Search
 
 ### 1. Installation
 
@@ -98,6 +98,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account-key.json"
    - 🌐 Website Search  
    - 📄 Document Retrieval  
    - ☁️ Storage Operations (upload, list, detail)
+   - 💡 Knowledge Update
 5. **Memory:**  
    - **Short-term:** Cloud SQL (session data)  
    - **Long-term:** Vertex AI Memory Bank
