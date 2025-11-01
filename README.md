@@ -27,7 +27,7 @@ Each interaction runs through:
 
 ---
 
-## Environment Requirements
+## Environment Requirement
 
 - Python **3.11+**
 - Virtual environment (`conda` / `venv`)
