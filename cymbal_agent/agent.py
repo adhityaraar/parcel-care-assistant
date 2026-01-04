@@ -3,8 +3,12 @@ from google.adk.agents import Agent
 from google.adk.tools.load_memory_tool import load_memory_tool
 
 # Local tool imports
-from archived import memory_debug_tools
 from cymbal_agent.tools import knowledge_search_tools, storage_tools, website_search_tools, datetime_tools
+
+try:
+    from archived import memory_debug_tools   # optional/local
+except Exception:
+    memory_debug_tools = None
 
 from dotenv import load_dotenv
 load_dotenv()
